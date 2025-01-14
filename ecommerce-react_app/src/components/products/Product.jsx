@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getProducts } from '../../services/ProductService'
 import ProductItem from './ProductItem'
-
+import ProductForm from './ProductForm'
 
 function Product() {
   let [products, setProducts] = useState([]) // useState used to store products
@@ -16,20 +16,31 @@ function Product() {
   return (
     <div>
 
-      {/* Displaying Products : Start */}
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-
-        {products.map((p) => {
-          return (
-            <ProductItem
-              productName={p.productName}
-              productDescription={p.productDescription}
-              productPrice={p.productPrice}
-            />
-          )
-        })}
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            {/* Product Form Start */}
+            <ProductForm />
+            {/* Product Form End */}
+          </div>
+          
+          <div class="col">
+            {/* Displaying Products : Start */}
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+              {products.map((p) => {
+                return (
+                  <ProductItem
+                    productName={p.productName}
+                    productDescription={p.productDescription}
+                    productPrice={p.productPrice}
+                  />
+                )
+              })}
+            </div>
+            {/* Displaying Products : End */}
+          </div>
+        </div>
       </div>
-      {/* Displaying Products : End */}
 
     </div>
   )
