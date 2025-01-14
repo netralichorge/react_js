@@ -5,18 +5,26 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Product from './components/products/Product';
 import Navbar from './components/Navbar';
 
+
 // Creating routes
 const routes = createBrowserRouter([
-
   {
     path:"/products",
-    element:<> <Product/> <Navbar/></>
+    element:<> <Navbar/> <Product/></>
   },
-
   {
     path:"/",
     element:<> <Navbar/> </>
   }
+  
+  
+  
+  
+
+  
+  
+  
+  
 
 ])
 function App() {
