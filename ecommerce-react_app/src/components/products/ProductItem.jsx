@@ -1,6 +1,12 @@
 import React from 'react'
 
-function ProductItem({ productName, productDescription, productPrice }) {
+function ProductItem({ productName, productDescription, productPrice,product_link }) {
+
+    const onSelectUpdate=(link)=>{
+        console.log(link) // for printing link on console
+
+    }
+
     return (
         <div>
             <div className='col'>
@@ -9,7 +15,11 @@ function ProductItem({ productName, productDescription, productPrice }) {
                         <h5 class="card-title">{productName}</h5>
                         <p class="card-text">{productDescription}</p>
                         <p class="card-text">Price: {productPrice}</p>
-                        <button className='btn btn-success'>Update</button>
+
+                        {/* Update Button */}
+                        <button className='btn btn-success'onClick={onSelectUpdate(product_link)}>Update</button>
+
+                        {/* Delete Button */}
                         <button className='btn btn-danger'>Delete</button>
 
                     </div>

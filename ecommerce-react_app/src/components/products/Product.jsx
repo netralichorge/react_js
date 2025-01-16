@@ -6,13 +6,27 @@ import ProductForm from './ProductForm'
 
 function Product() {
   let [products, setProducts] = useState([]) // useState used to store products
+  
+  // for search
+  let[searchQuery,setSearchQuery] = useState(" ")
+const handleChange=(event)=>{
+    setSearchQuery(event.target.value);
+}
 
   useEffect(() => {
     getProducts()
       .then(data => {
         setProducts(data);
+
       })
   }, [])
+
+  // To refresh all products when you add product
+  const refreshProducts=()=>{
+    getProducts().then(data=>{
+      setProducts(data);
+    })
+  }
 
   return (
     <div>
@@ -21,10 +35,10 @@ function Product() {
         <div class="row">
           <div class="col">
             {/* Product Form Start */}
-            <ProductForm />
+            <ProductForm onAddProduct={refreshProducts} />
             {/* Product Form End */}
           </div>
-          
+
           <div class="col">
             {/* Displaying Products : Start */}
             <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -34,6 +48,7 @@ function Product() {
                     productName={p.productName}
                     productDescription={p.productDescription}
                     productPrice={p.productPrice}
+                    product_link={p._links.self.href}
                   />
                 )
               })}

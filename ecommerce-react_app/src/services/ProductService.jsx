@@ -14,6 +14,12 @@ export const addProduct=(product)=>{
     },body:JSON.stringify(product)})
     .then(data=>data.json())
     .then(data=>data)
-    
-    
+       
+}
+export const getProductById=(product_link)=>{
+
+    return fetch(product_link)
+    .then(data=>data.json())
+    .then(data=>data)
+
 }

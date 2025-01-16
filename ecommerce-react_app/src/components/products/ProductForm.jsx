@@ -1,11 +1,12 @@
 import React from 'react'
 import { addProduct } from '../../services/ProductService'
 
-function ProductForm() {
+function ProductForm({onAddProduct}) {
 
     // Function to be called when form will be submitted
 
     const submitHandler=(e)=>{
+        e.preventDefault(); // used for stop refreshing webpage
 
         addProduct({
             // left side eclipse variables or right side form variables  
@@ -15,9 +16,10 @@ function ProductForm() {
             productDescription:e.target.productDescription.value,
             productPrice:e.target.productPrice.value
         })
-        .then(data=>data)
-
-
+        .then(data=>{
+            onAddProduct();
+            return data;
+        })
     }
 
     //==================================================
