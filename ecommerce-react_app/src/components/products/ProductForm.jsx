@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { addProduct } from '../../services/ProductService'
 
-function ProductForm({onAddProduct}) {
+function ProductForm({onAddProduct,selectedProduct}) {
 
     // Function to be called when form will be submitted
+
+    let[product,setProduct] = useState({productId:'',productName:'',productDescription:'',productPrice:''});
 
     const submitHandler=(e)=>{
         e.preventDefault(); // used for stop refreshing webpage
@@ -23,6 +25,22 @@ function ProductForm({onAddProduct}) {
     }
 
     //==================================================
+    // useEffect run atleast one time
+
+    useEffect(()=>{
+        if(selectedProduct)
+            setProduct(selectedProduct)
+
+    },[selectedProduct])
+
+    //==================================================
+    // To Control change in input box
+
+    const handleChange=(e)=>{
+        console.log(e.target)
+    }
+
+    //===================================================
     return (
 
         <div className='container border border-primary border-3 p-3 my-3'>
@@ -34,21 +52,24 @@ function ProductForm({onAddProduct}) {
                 {/* Product Id */}
                 <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">Product Id</label>
-                    <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='productId' />
+                    <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='productId'
+                    value={product.productId} onChange={handleChange} />
                 </div>
 
                 {/* Product Name */}
                 <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">Product Name</label>
                     <input type="text" className="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" name='productName' />
+                        aria-describedby="emailHelp" name='productName'
+                        value={product.productName} onChange={handleChange} />
                 </div>
 
                 {/* Product Description */}
                 <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">Product Description</label>
                     <input type="text" className="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" name='productDescription' />
+                        aria-describedby="emailHelp" name='productDescription'
+                        value={product.productDescription} onChange={handleChange} />
                 </div>
 
                 {/* Product Price*/}
@@ -56,7 +77,8 @@ function ProductForm({onAddProduct}) {
                     <label for="exampleInputEmail1" className="form-label">Product Price</
                     label>
                     <input type="number" className="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" name='productPrice' />
+                        aria-describedby="emailHelp" name='productPrice'
+                        value={product.productPrice} onChange={handleChange} />
                 </div>
 
                    {/* Button to submit form */}

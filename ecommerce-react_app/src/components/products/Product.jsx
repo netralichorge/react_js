@@ -6,7 +6,8 @@ import ProductForm from './ProductForm'
 
 function Product() {
   let [products, setProducts] = useState([]) // useState used to store products
-  
+  let [selectedProduct, setSelectedProduct] = useState(null)
+
   // for search
   let[searchQuery,setSearchQuery] = useState(" ")
 const handleChange=(event)=>{
@@ -28,14 +29,21 @@ const handleChange=(event)=>{
     })
   }
 
+  //To set select Product
+  const handleSelectProduct=(selectedProduct)=>{
+
+    setSelectedProduct(selectedProduct);
+    console.log(selectedProduct)
+  }
+
   return (
     <div>
 
-      <div class="container">
+      <div class="container mt-3">
         <div class="row">
           <div class="col">
             {/* Product Form Start */}
-            <ProductForm onAddProduct={refreshProducts} />
+            <ProductForm onAddProduct={refreshProducts} selectedProduct={selectedProduct} />
             {/* Product Form End */}
           </div>
 
@@ -49,6 +57,9 @@ const handleChange=(event)=>{
                     productDescription={p.productDescription}
                     productPrice={p.productPrice}
                     product_link={p._links.self.href}
+                    onSelectProduct={handleSelectProduct}
+                     
+                    
                   />
                 )
               })}
