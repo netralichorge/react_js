@@ -37,7 +37,15 @@ function ProductForm({onAddProduct,selectedProduct}) {
     // To Control change in input box
 
     const handleChange=(e)=>{
-        console.log(e.target)
+       // console.log(e.target)
+        let {name,value}=e.target;
+        console.log(name+" "+value);
+
+       setProduct((prevProduct)=>{
+           console.log(prevProduct)
+            return {...prevProduct,[name]:value};
+
+        })
     }
 
     //===================================================

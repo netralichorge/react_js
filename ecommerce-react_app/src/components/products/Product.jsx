@@ -49,6 +49,7 @@ const handleChange=(event)=>{
 
           <div class="col">
             {/* Displaying Products : Start */}
+            
             <div class="row row-cols-1 row-cols-md-2 g-4">
               {products.map((p) => {
                 return (
