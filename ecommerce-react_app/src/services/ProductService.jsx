@@ -23,3 +23,15 @@ export const getProductById=(product_link)=>{
     .then(data=>data)
 
 }
+
+export const updateProduct=(product_id_link,product)=>{
+
+    return fetch(product_id_link,{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(product)
+    })
+    .then(data=>data.json())
+    .then(data=>data)
+
+}

@@ -43,7 +43,7 @@ const handleChange=(event)=>{
         <div class="row">
           <div class="col">
             {/* Product Form Start */}
-            <ProductForm onAddProduct={refreshProducts} selectedProduct={selectedProduct} />
+            <ProductForm onAddProduct={refreshProducts} selectedProduct={selectedProduct} onUpdateProduct={refreshProducts} />
             {/* Product Form End */}
           </div>
 
@@ -59,8 +59,7 @@ const handleChange=(event)=>{
                     productPrice={p.productPrice}
                     product_link={p._links.self.href}
                     onSelectProduct={handleSelectProduct}
-                     
-                    
+                      
                   />
                 )
               })}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { addProduct } from '../../services/ProductService'
+import { addProduct, updateProduct } from '../../services/ProductService'
 
-function ProductForm({onAddProduct,selectedProduct}) {
+function ProductForm({onAddProduct,selectedProduct,onUpdateProduct}) {
 
     // Function to be called when form will be submitted
 
@@ -23,6 +23,7 @@ function ProductForm({onAddProduct,selectedProduct}) {
             return data;
         })
     }
+    
 
     //==================================================
     // useEffect run atleast one time
@@ -37,15 +38,36 @@ function ProductForm({onAddProduct,selectedProduct}) {
     // To Control change in input box
 
     const handleChange=(e)=>{
+         
        // console.log(e.target)
         let {name,value}=e.target;
         console.log(name+" "+value);
-
+       
        setProduct((prevProduct)=>{
            console.log(prevProduct)
             return {...prevProduct,[name]:value};
 
         })
+    
+    }
+
+    //==================================================
+    // To handle update
+
+    const updateHandler=(e)=>{
+        e.preventDefault();
+
+        console.log("Update Handler called");
+        updateProduct(selectedProduct._links.self.href,{
+        productName:e.target.productName.value,
+        productDescription:e.target.productDescription.value,
+        productPrice:e.target.productPrice.value
+       })   
+       .then(data=>{
+        onAddProduct();
+       setProduct({productId:'',productName:'',productDescription:'',productPrice:''});
+       })
+
     }
 
     //===================================================
@@ -53,7 +75,7 @@ function ProductForm({onAddProduct,selectedProduct}) {
 
         <div className='container border border-primary border-3 p-3 my-3'>
 
-            <form onSubmit={submitHandler}>
+            <form onSubmit={selectedProduct?updateHandler:submitHandler}>
                 
                 <h1 className='bg-primary p-3 text-white text-center'>Add Product</h1>
 
@@ -90,7 +112,7 @@ function ProductForm({onAddProduct,selectedProduct}) {
                 </div>
 
                    {/* Button to submit form */}
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">{selectedProduct?"Update":"Submit"}</button>
 
             </form>
         </div>
