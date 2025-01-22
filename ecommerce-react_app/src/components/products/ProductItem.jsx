@@ -1,7 +1,7 @@
 import React from 'react'
-import { getProductById } from '../../services/ProductService'
+import { deleteProduct, getProductById } from '../../services/ProductService'
 
-function ProductItem({ productName, productDescription, productPrice,product_link,onSelectProduct }) {
+function ProductItem({ productName, productDescription, productPrice,product_link,onSelectProduct,onDeleteProduct }) {
 
     const onSelectUpdate=async(link)=>{
        // console.log(link) // for printing link on console
@@ -10,6 +10,16 @@ function ProductItem({ productName, productDescription, productPrice,product_lin
        onSelectProduct(product)  //onSelectProduct is a function
 
     }
+    // ============================================================
+    // function to delete product
+
+    const onSelectDelete=async(product_id_link)=>{
+        const deletedProduct = await deleteProduct(product_id_link)
+        onDeleteProduct();
+
+  }
+
+    // ==========================================================
 
     return (
         <div>
@@ -24,7 +34,7 @@ function ProductItem({ productName, productDescription, productPrice,product_lin
                         <button className='btn btn-success' onClick={()=>{onSelectUpdate(product_link)}}>Update</button>
 
                         {/* Delete Button */}
-                        <button className='btn btn-danger'>Delete</button>
+                        <button className='btn btn-danger' onClick={()=>{onSelectDelete(product_link)}}>Delete</button>
 
                     </div>
 
