@@ -4,15 +4,14 @@ import ProductItem from './ProductItem'
 import ProductForm from './ProductForm'
 
 
-function Product() {
+function Product({queryFromNavbar}) {
   let [products, setProducts] = useState([]) // useState used to store products
-  let [selectedProduct, setSelectedProduct] = useState(null)
+  let [selectedProduct, setSelectedProduct] = useState(null);
 
   // for search
-  let [searchQuery, setSearchQuery] = useState(" ")
-  const handleChange = (event) => {
-    setSearchQuery(event.target.value);
-  }
+  let [searchQuery, setSearchQuery] = useState('');
+
+
 
   useEffect(() => {
     getProducts()
@@ -20,7 +19,11 @@ function Product() {
         setProducts(data);
 
       })
-  }, [])
+      if(queryFromNavbar)
+      {
+        setSearchQuery(queryFromNavbar)
+      }
+  }, [queryFromNavbar])
 
   // To refresh all products when you add product
   const refreshProducts = () => {
@@ -38,7 +41,7 @@ function Product() {
 
   // To sort data
 
-  const sort = async(choice) => {
+  const sort = async (choice) => {
     switch (choice) {
       case 1:
         setProducts(await getProductsLowToHigh());
@@ -84,18 +87,33 @@ function Product() {
             {/* Sort :Start */}
 
             <ul className="list-group mb-3">
-              <li className="list-group-item" onClick={()=>{sort(1)}}>Low to High</li>
-              <li className="list-group-item" onClick={()=>{sort(2)}}>High to Low</li>
-              <li className="list-group-item" onClick={()=>{sort(3)}}>A-Z</li>
-              <li className="list-group-item" onClick={()=>{sort(4)}}>Z-A</li>
+              <li className="list-group-item" onClick={() => { sort(1) }}>Low to High</li>
+              <li className="list-group-item" onClick={() => { sort(2) }}>High to Low</li>
+              <li className="list-group-item" onClick={() => { sort(3) }}>A-Z</li>
+              <li className="list-group-item" onClick={() => { sort(4) }}>Z-A</li>
             </ul>
 
             {/* Sort :End */}
+            <hr />
+
+            {/*========================== Search ======================================*/}
+
+            <div class="mb-3">
+              
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e)=>{setSearchQuery(e.target.value)}}/>
+              <div id="emailHelp" class="form-text">Enter search query</div>
+            </div>
+
+            {/* =====================(search End)====================================== */}
 
             {/* Displaying Products : Start */}
 
             <div className="row row-cols-1 row-cols-md-2 g-4">
-              {products.map((p) => {
+              {products.filter(p=>{
+
+                return p.productName.toLowerCase()
+                .includes(searchQuery.toLowerCase())
+              }).map((p) => {
                 return (
                   <ProductItem
                     productName={p.productName}
