@@ -70,3 +70,15 @@ export const getProductsOrderByProductNameDesc=()=>{
     .then(data=>data.json())
     .then(data=>data["_embedded"]["products"])
 }
+
+export const uploadProductImage=(product_link,file)=>{
+
+    let formData = new FormData();
+    formData.append("productImage",file)
+
+    return fetch(product_link+"/image",
+        {method:"POST", body:formData})
+        .then(data=>data.text())
+        .then(data=>data)
+
+}

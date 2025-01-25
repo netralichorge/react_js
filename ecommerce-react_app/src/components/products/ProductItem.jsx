@@ -1,5 +1,5 @@
 import React from 'react'
-import { deleteProduct, getProductById } from '../../services/ProductService'
+import { deleteProduct, getProductById, uploadProductImage } from '../../services/ProductService'
 
 function ProductItem({ productName, productDescription, productPrice,product_link,onSelectProduct,onDeleteProduct }) {
 
@@ -26,6 +26,7 @@ function ProductItem({ productName, productDescription, productPrice,product_lin
             <div className='col'>
                 <div class="card">
                     <div class="card-body">
+                    <img src={product_link+"/image"} class="card-img-top" alt="..."/>
                         <h5 class="card-title">{productName}</h5>
                         <p class="card-text">{productDescription}</p>
                         <p class="card-text">Price: {productPrice}</p>
