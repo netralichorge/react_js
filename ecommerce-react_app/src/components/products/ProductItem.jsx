@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { deleteProduct, getProductById, uploadProductImage } from '../../services/ProductService'
-import { getCategories } from '../../services/CategoryService'
+import { getCategories, setCategory } from '../../services/CategoryService'
 
 
 function ProductItem({ productName, productDescription, productPrice, product_link, onSelectProduct, onDeleteProduct }) {
@@ -47,6 +47,15 @@ function ProductItem({ productName, productDescription, productPrice, product_li
 
     // ==========================================================
 
+
+    const handleCategory=(category_link,product_link)=>{
+
+        setCategory(product_link+"/category",category_link)
+
+    }
+
+
+//========================================================================================
     return (
         <div>
             <div className='col'>
@@ -69,7 +78,9 @@ function ProductItem({ productName, productDescription, productPrice, product_li
                                 {categories.map((category) => {
 
                                     return (
-                                        <li><button class="dropdown-item" type="button">Action</button></li>
+                                        <li><button class="dropdown-item" type="button" 
+                                        onClick={()=>{handleCategory(category._links.self.href,product_link)}}
+                                        >{category.categoryName}</button></li>
                                         
                                     )
                                 })}
