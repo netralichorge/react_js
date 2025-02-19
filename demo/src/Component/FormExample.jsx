@@ -44,7 +44,7 @@ function FormExample() {
             <input type="number" name='age' value={data.age}
             onChange={handleAge}/>
 
-            <hr />
+            <br />
 
             <input type="submit" onClick={submitHandler}/>
         </form>

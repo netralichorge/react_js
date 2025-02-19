@@ -1,6 +1,5 @@
 import React, { useReducer } from 'react'
 
-
 function Student() {
 
     const reduce = (prevData, newData) => {
@@ -33,10 +32,6 @@ function Student() {
         console.log("data submitted successfully", data)
 
     }
-
-
-
-
         return (
 
             <div>
